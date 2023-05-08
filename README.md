@@ -13,25 +13,25 @@ $ yarn add react-wus-modal
 
 ### Documentation
 
-#### isOpen : Boolean describing if the modal should be shown or not.
+#### isOpen : 모달이 활성화 되어 있는 지 Boolean 값으로 확인합니다.
 
-#### onAfterOpen: Function that will be run after the modal has opened.
+#### onAfterOpen?: 모달이 켜진 후 실행되는 함수를 받습니다.
 
-#### onAfterClose: Function that will be run after the modal has closed.
+#### onAfterClose?: 모달이 꺼진 후 실행되는 함수를 받습니다.
 
-#### onRequestClose?: Function that will be run when the modal is requested to be closed (either by clicking on overlay or pressing ESC).
+#### onRequestClose?: 모달을 비활성화 하는 함수를 받습니다.
 
-#### ariaLabel?: Content Description
+#### ariaLabel?: 콘텐츠가 무엇을 의미하는 지 String 값으로 받습니다.
 
-#### zIndex?: Set z-index
+#### zIndex?: CSS의 z-index을 Number 값으로 받습니다.
 
-#### shouldCloseOnEsc?: Boolean indicating if pressing the esc key should close the modal
+#### shouldCloseOnEsc?: Esc로 모달을 끌 수 있도록 활성화 할 지 Boolean 값으로 확인합니다.
 
 ---
 
 ### Props interface
 
-```
+```jsx
   isOpen: boolean;
   onAfterOpen?: () => void;
   onAfterClose?: () => void;
@@ -42,3 +42,61 @@ $ yarn add react-wus-modal
 ```
 
 ---
+
+## Examples
+
+```jsx
+import React, { useState } from "react";
+import { Modal } from "react-wus-modal";
+import styled from "styled-components";
+
+export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const onAfterOpen = () => {
+    console.log("i am Open");
+  };
+
+  const onAfterClose = () => {
+    console.log("i am Close");
+  };
+
+  return (
+    <div>
+      <button onClick={() => setIsModalOpen(true)}>open</button>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={onCloseModal}
+        shouldCloseOnEsc={true}
+        onAfterOpen={onAfterOpen}
+        onAfterClose={onAfterClose}
+        zIndex={2}
+      >
+        <Form>
+          <button onClick={onCloseModal}>close</button>
+          <input type="text" />
+        </Form>
+      </Modal>
+    </div>
+  );
+}
+
+const Form = styled.form`
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: fixed;
+  width: 380px;
+  height: 600px;
+  position: absolute;
+  padding: 30px;
+  background-color: white;
+  z-index: 3;
+`;
+```
