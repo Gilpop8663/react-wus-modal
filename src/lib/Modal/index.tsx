@@ -1,23 +1,39 @@
 import React, { type PropsWithChildren } from 'react';
-import * as S from './styled';
+import ModalContent from './ModalContent';
 
 interface ModalProps extends PropsWithChildren {
   isOpen: boolean;
-  onClose?: () => void;
+  onRequestClose?: () => void;
   ariaLabel?: string;
   zIndex?: number;
+  shouldCloseOnEsc?: boolean;
+  onAfterOpen?: () => void;
+  onAfterClose?: () => void;
 }
 
 export default function Modal({
   isOpen,
-  onClose,
+  zIndex,
   ariaLabel,
+  onRequestClose,
+  onAfterOpen,
+  onAfterClose,
+  shouldCloseOnEsc,
   children,
 }: ModalProps) {
   return (
-    <S.Wrapper isOpen={isOpen} aria-label={ariaLabel}>
-      <S.Overlay onClick={onClose} />
-      {children}
-    </S.Wrapper>
+    <>
+      {isOpen && (
+        <ModalContent
+          onRequestClose={onRequestClose}
+          shouldCloseOnEsc={shouldCloseOnEsc}
+          ariaLabel={ariaLabel}
+          onAfterOpen={onAfterOpen}
+          onAfterClose={onAfterClose}
+          zIndex={zIndex}>
+          {children}
+        </ModalContent>
+      )}
+    </>
   );
 }

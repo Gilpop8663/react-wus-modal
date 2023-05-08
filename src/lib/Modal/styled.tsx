@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
 interface ModalWrapperProps {
-  isOpen: boolean;
   zIndex?: number;
 }
 
 const DEFAULT_MODAL_Z_INDEX = 1;
 
 export const Wrapper = styled.div<ModalWrapperProps>`
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   justify-content: center;
   position: fixed;
   top: 0;
