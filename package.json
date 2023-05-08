@@ -11,7 +11,11 @@
     "name": "Gilpop8663",
     "url": "https://github.com/Gilpop8663"
   },
-  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Gilpop8663/react-wus-modal.git"
+  },
+  "version": "1.0.2",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
